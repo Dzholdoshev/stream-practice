@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
@@ -250,7 +251,7 @@ public class Practice {
         return getAllEmployees().stream()
                 .sorted(Comparator.comparing(Employee::getSalary))
                 .collect(Collectors.groupingBy(Employee::getSalary))
-                .values().stream().skip(1).findFirst().get();
+                .values().stream().limit(2).skip(1).findFirst().get();
     }
 
     // Display the minimum salary an employee gets
@@ -286,7 +287,7 @@ public class Practice {
                 .sorted(Comparator.comparing(Employee::getSalary))
                 //.skip(1)
                 .collect(Collectors.groupingBy(Employee::getSalary))
-                .values().stream().skip(1).findFirst().get();
+                .values().stream().limit(2).skip(1).findFirst().get();
         //.sorted(Comparator.comparing(Employee::getSalary))
         // .skip(1)
         // .collect(Collectors.toList());
@@ -322,9 +323,12 @@ public class Practice {
     // Display all the employees separated based on their department id number
     public static Map<Long, List<Employee>> getAllEmployeesForEachDepartment() {
         //TODO Implement the method
+        return getAllEmployees().stream()
+        .collect(Collectors.groupingBy(employee -> employee.getDepartment().getId()));
 
 
-        return null;//getAllEmployees().stream()
+
+
         //  .map(department -> department.getId());
         // .collect(Collectors.groupingBy(Employee::getDepartment))
         //   .entrySet().stream()
@@ -466,7 +470,11 @@ public class Practice {
     public static List<Employee> getLongestNamedEmployee() {
         //TODO Implement the method
         return null;
-        //     getAllEmployees().stream()
+            //getAllEmployees().stream()
+              //      .peek(employee -> employee.getFirstName().concat(employee.getLastName().concat(" ")).length())
+                //    .
+
+        //.collect(Collectors.groupingBy(employee -> employee.getLastName().length()+employee.getFirstName().length()+1));
         //     .filter(x-> {
         //        try {
         //          return getLongestNameLength().equals(x);
