@@ -124,7 +124,7 @@ public class Practice {
     public static List<Department> getAllDepartmentsWhereLocationPostalCodeIs98199() {
         //TODO Implement the method
         return getAllDepartments().stream()
-                .filter(department -> department.getLocation().getPostalCode().equals(98199))
+                .filter(department -> department.getLocation().getPostalCode().equals("98199"))
                 .collect(Collectors.toList());
 
     }
@@ -431,10 +431,10 @@ public class Practice {
     public static List<Employee> getAllEmployeesDepartmentIdIs50or80or100() {
         //TODO Implement the method
         return getAllEmployees().stream()
-                .filter((employee -> employee.getDepartment().getId() == (50)))
-                .filter((employee -> employee.getDepartment().getId() == (80)))
-                .filter((employee -> employee.getDepartment().getId() == (100)))
-                .collect(Collectors.toList());
+                .filter(employee -> employee.getDepartment().getId() == (50)
+                        ||employee.getDepartment().getId() == (80)
+                        ||employee.getDepartment().getId() == (100))
+                        .collect(Collectors.toList());
     }
 
     // Display the initials of all the employees
@@ -449,31 +449,57 @@ public class Practice {
     // Display the full names of all the employees
     public static List<String> getAllEmployeesFullNames() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return getAllEmployees().stream()
+                .map(employee -> employee.getFirstName() + " " + employee.getLastName())
+                .collect(Collectors.toList());
     }
 
     // Display the length of the longest full name(s)
     public static Integer getLongestNameLength() throws Exception {
         //TODO Implement the method
-        return 1;
+        return getAllEmployeesFullNames().stream()
+                .max(Comparator.comparing(String::length))
+                .stream().findFirst().get().length();
     }
 
     // Display the employee(s) with the longest full name(s)
     public static List<Employee> getLongestNamedEmployee() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return null;
+        //     getAllEmployees().stream()
+        //     .filter(x-> {
+        //        try {
+        //          return getLongestNameLength().equals(x);
+        //    } catch (Exception e) {
+        //      throw new RuntimeException(e);
+        //    }
+        //  })
+
+        //   .collect(Collectors.toList());
     }
 
     // Display all the employees whose department id is 90, 60, 100, 120, or 130
     public static List<Employee> getAllEmployeesDepartmentIdIs90or60or100or120or130() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return getAllEmployees().stream()
+                .filter(employee -> employee.getDepartment().getId() == 90
+                        || employee.getDepartment().getId() == 60
+                        || employee.getDepartment().getId() == 100
+                        || employee.getDepartment().getId() == 120
+                        || employee.getDepartment().getId() == 130)
+                .collect(Collectors.toList());
     }
 
     // Display all the employees whose department id is NOT 90, 60, 100, 120, or 130
     public static List<Employee> getAllEmployeesDepartmentIdIsNot90or60or100or120or130() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return getAllEmployees().stream()
+                .filter(employee -> employee.getDepartment().getId() != 90
+                        && employee.getDepartment().getId() != 60
+                        && employee.getDepartment().getId() != 100
+                        && employee.getDepartment().getId() != 120
+                        && employee.getDepartment().getId() != 130)
+                .collect(Collectors.toList());
     }
 
 }
